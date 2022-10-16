@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import JsonResponse
 # Create your views here.
@@ -7,23 +8,24 @@ def get_home(request):
 
 def start_game(request):
     cards1, cards2 = initialize_game()
-    result = war(cards1, cards2)
-    # return all the hands 
-    
-    #save the game result in db
-
+    map_value_to_card
+    #convert all the values to cards in cards1 and cards2
+    cards1_card_val = [map_value_to_card(i) for i in cards1]
+    cards2_card_val = [map_value_to_card(i) for i in cards2]
+    record={}
+    #copy of cards1 and cards2
+    record['initial_status'] = {'player1': cards1_card_val, 'player2': cards2_card_val}
+    record['hands'] = {}
+    final_result = war(cards1, cards2,record)
+    record['final_result'] = final_result
+    # save the game result in db
     #'game_process', 'winner'
-    dictionary = {'cards1':cards1, 'cards2':cards2,'winner':result}
-    print(dictionary)
-    return JsonResponse(dictionary)
-
+    print(record)
+    return JsonResponse(record)
 
 def review_game(request):
     return render(request, "history.html")
 
-
-from ast import main
-from operator import truediv
 import random
 
 
@@ -37,7 +39,7 @@ def initialize_game():
     player2 = list[26:52]
     return player1, player2
 
-def war(player1,player2):
+def war(player1,player2,record):
     #start to play the game
     # end the game when one of the player has no card
 
@@ -50,15 +52,18 @@ def war(player1,player2):
     # if player2 wins, add all 6 cards to player2's deck
 
     # keep record of the game process with hands{}
-    hand_num = 0
+    
 
     while len(player1) > 0 and len(player2) > 0:
+        
         if player1[0] % 13 > player2[0] % 13:
+            record_hand(record, player1[0], player2[0])
             player1.append(player1[0])
             player1.append(player2[0])
             player1.remove(player1[0])
             player2.remove(player2[0])
         elif player1[0] % 13 < player2[0] % 13:
+            record_hand(record, player1[0], player2[0])
             player2.append(player2[0])
             player2.append(player1[0])
             player2.remove(player2[0])
@@ -69,7 +74,7 @@ def war(player1,player2):
             stack.append(player2[0])
             player1.remove(player1[0])
             player2.remove(player2[0])
-            compareTwo(player1, player2, stack)
+            compareTwo(player1, player2, stack,record)
 
     if  len(player1) == len(player2) == 0:
         return 'tie'
@@ -81,7 +86,7 @@ def war(player1,player2):
         return 'player2'
 #when there is a tie,  prepare two cards for each player,and compare the next card of each player
 # here is possible continuous loop when there are always ties
-def compareTwo(player1, player2,stack):
+def compareTwo(player1, player2, stack, record):
     # here we need to take care of coner cases when one of the player has less than 2 cards
     if len(player1) < 2 and len(player2) < 2:
         if len(player1) > len(player2):
@@ -99,7 +104,7 @@ def compareTwo(player1, player2,stack):
     
     #record hand
     
-
+    record_hand(record, player1[1], player2[1])
     tie = True
     if player1[1] % 13 > player2[1] % 13:
         tie = False
@@ -129,7 +134,7 @@ def compareTwo(player1, player2,stack):
         return 'continue game'
     else:
         #keep comparing until there is a winner
-        return compareTwo( player1, player2, stack)
+        return compareTwo( player1, player2, stack, record)
 
 #map all 52 values to cards
 def map_value_to_card(value):
@@ -141,9 +146,11 @@ def map_value_to_card(value):
 
 # this is to record the game process, 
 # for each hand, record the cards of each player
-def record_hand(hands, hand_num,player1_num, player2_num):
+def record_hand(record, player1_num, player2_num):
     player1_card = map_value_to_card(player1_num)
     player2_card = map_value_to_card(player2_num)
+    hands = record['hands']
+    hand_num = hands.__len__() + 1
     hands[hand_num] = {'player1': player1_card, 'player2': player2_card}
 
     
