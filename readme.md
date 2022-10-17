@@ -1,13 +1,13 @@
+# War Card Game
 # Introduction about this web app
 This is a web app for war card game using django. It has three pages. 'Home' page, 'game' API page for starting a new game with two simulated players, and also 'summary' page for checking about history player's playing history.
 
 # Rules
 https://bicyclecards.com/how-to-play/war/
-no kings involved.
+no jokers are used.
 when in pairs, if one player has not enough card, that player lose.
 
-# Instruction about how to run this web app
-image.png
+# Instruction about how to run this
 
 ## django preparation
 this is a django + html + css program. to run a django web app you need to:
@@ -33,8 +33,7 @@ a
 6. Visit http://localhost:8000 and visit the below two web pages.
 
 ### start_game:
-visit: localhost:8000/start
-this page will return a JSON response
+Visit localhost:8000/start. This page will return a JSON response.
 
 after visiting the page, it will start a new round of game and return these info of the new game:
 
@@ -52,10 +51,8 @@ after visiting the page, it will start a new round of game and return these info
     "final_result": "player1"}
 
 ### Summary of the game history
-visit: localhost:8000/history
-    this page will return a UI web page
-    lifetime wins for each player
-    image.png
+    - visit localhost:8000/history
+    - this page will return a UI web page shoiwng lifetime wins for each player
 
 # DB structure
 ## what is stored in db?
