@@ -1,14 +1,13 @@
 import re
 from django.shortcuts import render
 from django.http import JsonResponse
-# Create your views here.
+from war.models import Game
 
 def get_home(request):
     return render(request, "home.html")
 
 def start_game(request):
     cards1, cards2 = initialize_game()
-    map_value_to_card
     #convert all the values to cards in cards1 and cards2
     cards1_card_val = [map_value_to_card(i) for i in cards1]
     cards2_card_val = [map_value_to_card(i) for i in cards2]
@@ -20,6 +19,11 @@ def start_game(request):
     record['final_result'] = final_result
     # save the game result in db
     #'game_process', 'winner'
+    
+    #save the result in model
+    game = Game.objects.create(winner=final_result,initial_status = record['initial_status'])
+    game.save()
+
     print(record)
     return JsonResponse(record)
 
@@ -27,7 +31,6 @@ def review_game(request):
     return render(request, "history.html")
 
 import random
-
 
 def initialize_game():
     #initialize the cards for each player
