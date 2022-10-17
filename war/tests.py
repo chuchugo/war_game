@@ -36,7 +36,4 @@ class WinFuncTests(TestCase):
             player2 = [   14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
             self.assertEquals(war(player1, player2,{'hands':{}}), 'player1') 
 
-            # 0 10 14           2 3   4  5   6  7   8  9  10 11  12 0 
-            # 13               15 16  17 18  19 20  21 22 23 24  25 13
-    def test_start_game(self):
-        start_game()
+         

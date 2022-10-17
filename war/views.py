@@ -157,4 +157,13 @@ def record_hand(record, player1_num, player2_num):
     hands[hand_num] = {'player1': player1_card, 'player2': player2_card}
 
     
-    
+def review_game(request):
+    summary = {}
+    games_player1_won = Game.objects.filter(winner='player1').count()
+    games_player2_won = Game.objects.filter(winner='player2').count()
+    games_tie = Game.objects.filter(winner='tie').count()
+    summary['games_player1_won'] = games_player1_won
+    summary['games_player2_won'] = games_player2_won
+    summary['games_tie'] = games_tie
+    return JsonResponse(summary)
+
