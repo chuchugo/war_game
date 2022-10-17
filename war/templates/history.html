@@ -18,28 +18,32 @@
             <div class="header-img-container">
                 <img src="static/war/AceSpades.png" alt="" class="header-img">
             </div>
+             <div class="header-score-container">
+                <h2 class="score">Rounds Player1 won 
+                    <div>
+                        <span class="badge">{{games_player1_won}}
+                        </span>
+                    </div>
+                </h2>
+            </div>
+            <div class="header-round-container">
+                <h2 class="score">Rounds Player2 won 
+                    <div>
+                    <span class="badge">{{games_player2_won}}
+                    </span>
+                    </div>
+                </h2>
+            </div> 
+            <div class="header-round-container">
+                <h2 class="score">Ties &nbsp;<span class="badge">{{games_tie}}</span></h2>
+            </div> 
         </div>
-        <div class="header-status-info-container">
-            <p class="current-status">
-                Click 'Play' button to play game
-            </p>
-        </div>
+    
+    
         <div class="header-button-container">
-            <form action="{% url 'start-game' %}" method="GET">
+            <form action="{% url 'home' %}" method="GET">
                 <div class="game-play-button-container">
-                    <button id = "playgame" class="play-game">Play</button>
-                </div>
-            </form>
-        </div>
-        <div class="header-status-info-container">
-            <p class="current-status">
-                Click 'History' button to see previous game history
-            </p>
-        </div>
-        <div class="header-button-container">
-            <form action="{% url 'review-game' %}" method="GET">
-                <div class="game-play-button-container">
-                    <button id = "history" class="play-game">History</button>
+                    <button id = "home" class="play-game">Home</button>
                 </div>
             </form>
         </div>
