@@ -1,8 +1,5 @@
 # War Card Game
 ![Alt text](war/static/image1.png "Optional title")
-<img src="war/static/image2.png" alt="Alt text" title="Optional title">
-
-
 
 # Introduction about this web app
 This is a web app for war card game using django. It has three pages. 'Home' page, 'game' API page for starting a new game with two simulated players, and also 'summary' page for checking about history player's playing history.
@@ -58,6 +55,7 @@ after visiting the page, it will start a new round of game and return these info
 ### Summary of the game history
     - visit localhost:8000/history
     - this page will return a UI web page shoiwng lifetime wins for each player
+<img src="war/static/image2.png" alt="Alt text" title="Optional title">
 
 # DB structure
 ## what is stored in db?
