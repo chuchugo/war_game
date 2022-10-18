@@ -1,4 +1,7 @@
 # War Card Game
+war/static/image1.png
+war/static/image2.png
+
 # Introduction about this web app
 This is a web app for war card game using django. It has three pages. 'Home' page, 'game' API page for starting a new game with two simulated players, and also 'summary' page for checking about history player's playing history.
 
